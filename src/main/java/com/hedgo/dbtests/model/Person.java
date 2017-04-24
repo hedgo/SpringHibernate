@@ -1,4 +1,4 @@
-package com.journaldev.model;
+package com.hedgo.dbtests.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,24 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Entity bean with JPA annotations
- * Hibernate provides JPA implementation
- * @author pankaj
- *
- */
 @Entity
 @Table(name="PERSON")
 public class Person {
-
-
-	public Person() {
-	}
-
-	public Person(String country, String name) {
-		this.country = country;
-		this.name = name;
-	}
 
 	@Id
 	@Column(name="id")
@@ -34,6 +19,14 @@ public class Person {
 	private String name;
 	
 	private String country;
+
+	public Person() {
+	}
+
+	public Person(String country, String name) {
+		this.country = country;
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;

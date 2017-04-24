@@ -43,7 +43,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.journaldev.model.Person</value>
+				<value>com.hedgo.dbtests.model.Person</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -55,7 +55,7 @@
 		</property>
 	</bean>
 	
-	<bean id="personDAO" class="com.journaldev.dao.PersonDAOImpl">
+	<bean id="userDAO" class="com.hedgo.dbtests.dao.UserDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
 </beans>
