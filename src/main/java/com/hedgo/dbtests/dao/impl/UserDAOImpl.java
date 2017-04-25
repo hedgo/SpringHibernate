@@ -1,5 +1,6 @@
-package com.hedgo.dbtests.dao;
+package com.hedgo.dbtests.dao.impl;
 
+import com.hedgo.dbtests.dao.UserDAO;
 import com.hedgo.dbtests.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

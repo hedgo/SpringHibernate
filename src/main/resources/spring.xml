@@ -55,7 +55,7 @@
 		</property>
 	</bean>
 	
-	<bean id="userDAO" class="com.hedgo.dbtests.dao.UserDAOImpl">
+	<bean id="userDAO" class="com.hedgo.dbtests.dao.impl.UserDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>-->
 
