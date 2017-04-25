@@ -1,10 +1,9 @@
 package com.hedgo.dbtests.main;
 
 import java.util.List;
-
 import com.hedgo.dbtests.dao.UserDAO;
+import com.hedgo.dbtests.model.User;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.hedgo.dbtests.model.Person;
 
 public class SpringHibernateMain {
 
@@ -13,19 +12,15 @@ public class SpringHibernateMain {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring4.xml");
 
         UserDAO userDAO = context.getBean(UserDAO.class);
+        userDAO.save(new User("Polska", "Andrzej1"));
+        userDAO.save(new User("Polska", "Andrzej2"));
+        userDAO.save(new User("Polska", "Andrzej3"));
 
-        userDAO.save(new Person("Polska", "Andrzej1"));
-        userDAO.save(new Person("Polska", "Andrzej2"));
-        userDAO.save(new Person("Polska", "Andrzej3"));
-
-        List<Person> list = userDAO.list();
-
-        for (Person p : list) {
-            System.out.println("Person List::" + p);
+        List<User> list = userDAO.list();
+        for (User p : list) {
+            System.out.println("User List::" + p);
         }
 
         context.close();
-
     }
-
 }

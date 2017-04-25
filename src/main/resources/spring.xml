@@ -17,9 +17,9 @@
 		<property name="password" value="pankaj123" />
 	</bean>-->
 
-	<jdbc:embedded-database id="dataSource" type="H2">
+<!--	<jdbc:embedded-database id="dataSource" type="H2">
 		<jdbc:script location="/database/H2-schema.sql" />
-	</jdbc:embedded-database>
+	</jdbc:embedded-database>-->
 
 <!-- Hibernate 3 XML SessionFactory Bean definition-->
 <!-- 	<bean id="hibernate3SessionFactory"
@@ -38,12 +38,12 @@
 	</bean> -->
 
 <!-- Hibernate 3 Annotation SessionFactory Bean definition-->
-	<bean id="hibernate3AnnotatedSessionFactory"
+	<!--<bean id="hibernate3AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.hedgo.dbtests.model.Person</value>
+				<value>com.hedgo.dbtests.model.User</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -57,5 +57,35 @@
 	
 	<bean id="userDAO" class="com.hedgo.dbtests.dao.UserDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
-	</bean>
+	</bean>-->
+
+	<!--    <hibernate-configuration>
+        <session-factory>
+            <property name="connection.url">jdbc:mysql://localhost:3306/test</property>
+            <property name="connection.username">root</property>
+            <property name="connection.password">root</property>
+            <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+            <property name="hibernate.default_schema">test</property>
+            <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+            <property name="show_sql">true</property>
+
+            <property name="format_sql">true</property>
+            <property name="hbm2ddl.auto">create-drop</property>
+
+            &lt;!&ndash; JDBC connection pool (use the built-in) &ndash;&gt;
+            <property name="connection.pool_size">1</property>
+            <property name="current_session_context_class">thread</property>
+
+            &lt;!&ndash; Mapping files will go here.... &ndash;&gt;
+
+            <mapping class="model.Company" />
+            <mapping class="model.Conference" />
+            <mapping class="model.ConferencesParticipants" />
+            <mapping class="model.ConferenceParticipantStatus" />
+            <mapping class="model.ConferencesUsers" />
+            <mapping class="model.Location" />
+            <mapping class="model.User" />
+
+        </session-factory>-->
 </beans>

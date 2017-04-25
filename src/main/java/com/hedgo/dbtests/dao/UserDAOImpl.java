@@ -1,6 +1,6 @@
 package com.hedgo.dbtests.dao;
 
-import com.hedgo.dbtests.model.Person;
+import com.hedgo.dbtests.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,15 +12,10 @@ import java.util.List;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    @Qualifier("hibernate4AnnotatedSessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public void save(Person p) {
+    public void save(User p) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         //session.persist(p);
@@ -29,12 +24,25 @@ public class UserDAOImpl implements UserDAO {
         session.close();
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Person> list() {
+    public List<User> list() {
         Session session = this.sessionFactory.openSession();
-        List<Person> personList = session.createQuery("from Person").list();
+        List<User> userList = session.createQuery("from User").list();
         session.close();
-        return personList;
+        return userList;
     }
+
+   /* public List<User> getByUsername() {
+        Session session = this.sessionFactory.openSession();
+        List<User> userList = session.createQuery("from User as u where u.username= ? ").list();
+        session.close();
+        return userList;
+
+
+        createQuery("from gcv.metier.User as u where u.username= ?")
+    }
+*/
+
+
+
 
 }
