@@ -26,9 +26,9 @@
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
-			<list>
+			<listAll>
 				<value>person.hbm.xml</value>
-			</list>
+			</listAll>
 		</property>
 		<property name="hibernateProperties">
 			<value>
@@ -42,9 +42,9 @@
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
-			<list>
+			<listAll>
 				<value>com.hedgo.dbtests.model.User</value>
-			</list>
+			</listAll>
 		</property>
 		<property name="hibernateProperties">
 			<props>

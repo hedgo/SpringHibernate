@@ -8,13 +8,15 @@ public class User {
     private int id;
     private String name;
     private String country;
+    private int age;
 
     public User() {
     }
 
-    public User(String country, String name) {
-        this.country = country;
+    public User(String name, String country, int age) {
         this.name = name;
+        this.country = country;
+        this.age = age;
     }
 
     @Id
@@ -46,6 +48,19 @@ public class User {
 
     @Override
     public String toString() {
-        return "id=" + id + ", name=" + name + ", country=" + country;
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

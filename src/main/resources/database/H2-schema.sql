@@ -2,5 +2,6 @@ CREATE TABLE IF NOT EXISTS USER (
   id INTEGER(11) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(20) NOT NULL DEFAULT '',
   country varchar(20) DEFAULT NULL,
+  age INTEGER(3) NOT NULL,
   PRIMARY KEY (id)
 );
