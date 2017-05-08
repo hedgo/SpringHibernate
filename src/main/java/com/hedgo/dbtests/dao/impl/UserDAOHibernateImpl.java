@@ -78,7 +78,5 @@ import java.util.List;
     //Wiecej przykaldow mozna znalesc na stronie:
     //http://www.journaldev.com/2954/hibernate-query-language-hql-example-tutorial
     //Generalnie nie uzywaj HQL, tylko zwyklych zapytan.. Zobacz jak w ksiazce o springu mozna to zrobic lepiej np. przez Spring Data JPAA
-
     //Napisz przyklad zapytan w jednym xmlu!!!
-
 }

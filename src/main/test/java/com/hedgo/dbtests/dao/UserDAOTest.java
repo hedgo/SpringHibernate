@@ -36,13 +36,9 @@ public class UserDAOTest {
     public void testSave() throws Exception {
         System.out.println("testSave");
 
-        userDAO.save(new User("Name", "Polska", 10));
-
-
-
-/*        for (int i = 0; i < 100; i++) {
-            userDAO.save(new User(-1,"Name"+i, "Polska",10+i));
-        }*/
+        for (int i = 0; i < 100; i++) {
+            userDAO.save(new User("Name"+i, "Polska",10+i));
+        }
 
         //userDAO.listAllNative().forEach((item)-> System.out.println(item));
         //userDAO.listAllNative().forEach(System.out::println);
@@ -51,7 +47,7 @@ public class UserDAOTest {
                 .forEach(System.out::println);
 
 
-//        assertTrue(userDAO.listAllNative().size() == 103);
+        assertTrue(userDAO.listAllNative().size() == 103);
     }
 
     @Test
