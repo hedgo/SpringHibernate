@@ -17,7 +17,7 @@ import java.util.Map;
     public class UserDAOJDBCTemplateImpl implements UserDAO {
 
         public static final String SELECT_ALL_SQL = "SELECT * FROM USER";
-        public static final String INSERT_SQL = "INSERT INTO USER(id, name, country, age) VALUES(USERS_SEQ.nextval, ?, ?, ?)";
+        public static final String INSERT_SQL = "INSERT INTO USER(name, country, age) VALUES(?, ?, ?)";
         public static final String FIND_BY_SQL = "SELECT * FROM USER WHERE id = ?; ";
         @Autowired
         private JdbcTemplate jdbcTemplate;
@@ -32,7 +32,9 @@ import java.util.Map;
         User user = jdbcTemplate.queryForObject(FIND_BY_SQL, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new User(resultSet.getString("NAME"), resultSet.getString("COUNTRY"), resultSet.getInt("AGE"));
+                User user=new User(resultSet.getString("NAME"), resultSet.getString("COUNTRY"), resultSet.getInt("AGE"));
+                user.setId(resultSet.getInt("ID"));
+                return user;
             }
         }, id);
 
@@ -65,7 +67,9 @@ import java.util.Map;
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SELECT_ALL_SQL);
 
         for (Map row : rows) {
-            userList.add(new User((String) row.get("NAME"), (String) row.get("COUNTRY"), (Integer) row.get("AGE")));
+            User user=new User((String) row.get("NAME"), (String) row.get("COUNTRY"), (Integer) row.get("AGE"));
+            user.setId((Integer) row.get("ID"));
+            userList.add(user);
         }
 
         return userList;

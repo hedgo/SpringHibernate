@@ -13,7 +13,7 @@ public class SpringHibernateMain {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.WARNING);
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring4.xml");
-        UserDAO userDAO = (UserDAO) context.getBean("Hibernate");
+        UserDAO userDAO = (UserDAO) context.getBean("JDBCTemplate");
         userDAO.initSession();
         fillUsersToDB(userDAO);
 /*        userDAO.update(2, new User("XXX", "XXX", 111));

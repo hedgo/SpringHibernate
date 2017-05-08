@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class UserDAOTest {
 
     @Autowired
-    @Qualifier("Hibernate")
+    @Qualifier("JDBCTemplate")
     UserDAO userDAO;
 
     @Before
