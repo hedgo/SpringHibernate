@@ -19,6 +19,13 @@ public class User {
         this.age = age;
     }
 
+    public User(int id, String name, String country, int age) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.age = age;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

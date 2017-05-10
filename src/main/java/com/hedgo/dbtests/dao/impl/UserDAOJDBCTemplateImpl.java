@@ -4,32 +4,46 @@ import com.hedgo.dbtests.dao.UserDAO;
 import com.hedgo.dbtests.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-    @Repository("JDBCTemplate")
-    public class UserDAOJDBCTemplateImpl implements UserDAO {
+@Repository("JDBCTemplate")
+public class UserDAOJDBCTemplateImpl implements UserDAO {
 
-        public static final String SELECT_ALL_SQL = "SELECT * FROM USER";
-        public static final String INSERT_SQL = "INSERT INTO USER(name, country, age) VALUES(?, ?, ?)";
-        public static final String FIND_BY_SQL = "SELECT * FROM USER WHERE id = ?; ";
-        @Autowired
-        private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplateNamed;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-        @Override
-        public void save(User user) {
-            jdbcTemplate.update(INSERT_SQL, user.getName(), user.getCountry(), user.getAge());
-        }
+    @Override
+    public void save(User user) {
+        String INSERT_SQL = "INSERT INTO USER(name, country, age) VALUES (:name, :country, :age)";
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("name", user.getName());
+        paramMap.put("country", user.getCountry());
+        paramMap.put("age", user.getAge());
+
+        jdbcTemplateNamed.update(INSERT_SQL, paramMap);
+        //public static final String INSERT_SQL = "INSERT INTO USER(name, country, age) VALUES(?, ?, ?)";
+        //jdbcTemplate.update(INSERT_SQL, user.getName(), user.getCountry(), user.getAge());
+    }
 
     @Override
     public User read(int id) {
-        User user = jdbcTemplate.queryForObject(FIND_BY_SQL, new RowMapper<User>() {
+        String FIND_BY_SQL = "SELECT * FROM USER WHERE id = ?; ";
+
+        User user = jdbcTemplate.queryForObject(FIND_BY_SQL, (rs, rowNum) -> {
+            return new User(rs.getInt("ID"), rs.getString("NAME"), rs.getString("COUNTRY"), rs.getInt("AGE"));
+        }, id);
+
+/* Old way, before Java8
+        User user = jdbcTemplateNamed.queryForObject(FIND_BY_SQL, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
                 User user=new User(resultSet.getString("NAME"), resultSet.getString("COUNTRY"), resultSet.getInt("AGE"));
@@ -37,7 +51,7 @@ import java.util.Map;
                 return user;
             }
         }, id);
-
+*/
         return user;
     }
 
@@ -52,6 +66,12 @@ import java.util.Map;
     }
 
     @Override
+    public void deleteAll() {
+        String DELETE_ALL_SQL = "DELETE FROM USER";
+        jdbcTemplateNamed.update(DELETE_ALL_SQL,new HashMap());
+    }
+
+    @Override
     public List<User> listAll() {
         return listAllNative();
     }
@@ -63,16 +83,21 @@ import java.util.Map;
 
     @Override
     public List<User> listAllNative() {
-        List<User> userList = new ArrayList<User>();
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(SELECT_ALL_SQL);
+        String SELECT_ALL_SQL = "SELECT * FROM USER";
+        List<Map<String, Object>> allUsers = jdbcTemplate.queryForList(SELECT_ALL_SQL);
 
+/* Old way, before Java8
+        List<User> userList = new ArrayList<User>();
         for (Map row : rows) {
-            User user=new User((String) row.get("NAME"), (String) row.get("COUNTRY"), (Integer) row.get("AGE"));
+            User user = new User((String) row.get("NAME"), (String) row.get("COUNTRY"), (Integer) row.get("AGE"));
             user.setId((Integer) row.get("ID"));
             userList.add(user);
         }
+*/
 
-        return userList;
+        return allUsers.stream().map(oneUser -> {
+            return new User((Integer) oneUser.get("ID"), (String) oneUser.get("NAME"), (String) oneUser.get("COUNTRY"), (Integer) oneUser.get("AGE"));
+        }).collect(Collectors.toList());
     }
 
     @Override

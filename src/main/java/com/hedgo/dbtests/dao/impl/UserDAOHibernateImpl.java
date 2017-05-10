@@ -31,8 +31,7 @@ import java.util.List;
     }
 
     public List<User> listAll() {
-        List<User> userList = session.createQuery("from User").list();
-        return userList;
+        return session.createQuery("from User").list();
     }
 
     public User read(int id) {
@@ -55,9 +54,13 @@ import java.util.List;
         query.executeUpdate();
     }
 
+    @Override
+    public void deleteAll() {
+        session.createQuery("delete from User").executeUpdate();
+    }
+
     public Long countAll() {
-        Query query = session.createQuery("select count(*) from User");
-        return (Long) query.uniqueResult();
+        return (Long) session.createQuery("select count(*) from User").uniqueResult();
     }
 
     public List<User> listAllNative() {

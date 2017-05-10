@@ -13,6 +13,8 @@ public interface UserDAO {
 
     public void delete(int id);
 
+    public void deleteAll();
+
     public List<User> listAll();
 
     public Long countAll();

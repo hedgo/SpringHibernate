@@ -26,6 +26,7 @@ public class SpringHibernateMain {
         User user =userDAO.read(1);
         user.setAge(1000);
         userDAO.save(user);*/
+        //userDAO.deleteAll();
         showAllUsers(userDAO);
         //System.out.println("!!!!" + userDAO.read(2));
 
